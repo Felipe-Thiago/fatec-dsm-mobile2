@@ -3,11 +3,10 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import ListaRegistros from './ListaRegistros';
 
-export default function Produto({onSalvarDados}) {
+export default function Produto({onSalvarDados, telaAtual, setTelaAtual, onApagarDados}) {
     const [qtd, setQtd] = useState('');
     const [produto, setProduto] = useState('');
     const [valor, setValor] = useState('');
-    const [telaAtual, setTelaAtual] = useState('form');
 
     const handleSalvar = () =>{
         if(qtd && produto && valor) {
@@ -20,6 +19,10 @@ export default function Produto({onSalvarDados}) {
             Alert.alert('Erro', 'Por favor, preencha todos os campos.');
         }
     };
+    
+    const handleApagar = () => {
+        onApagarDados();
+    }
 
     const limparCampos = () => {
         setQtd('');
@@ -86,7 +89,11 @@ export default function Produto({onSalvarDados}) {
                         onPress={() => setTelaAtual('registros')}
                     />
                 </View>
-            </View>         
+                
+            </View>
+            <View style={[styles.botao]}>
+                <Button title="Apagar" onPress={handleApagar}/>
+            </View>        
         </View>
     )
 }
@@ -102,7 +109,6 @@ const styles = StyleSheet.create({
     inputRow: {
         flexDirection: 'row',
         marginBottom: 10,
-        width: '100%',
         justifyContent: 'flex-end',
     },
     input: {

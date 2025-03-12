@@ -5,7 +5,6 @@ import AsyncStorage from './componentes/AsyncStorage'
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.cabecalho}>Armazenamento local</Text>
       <AsyncStorage />
       <StatusBar style="auto" />
     </View>
