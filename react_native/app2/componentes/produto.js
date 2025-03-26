@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Modal } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import ListaRegistros from './ListaRegistros';
 
@@ -22,6 +22,7 @@ export default function Produto({onSalvarDados, telaAtual, setTelaAtual, onApaga
     
     const handleApagar = () => {
         onApagarDados();
+        setModalVisible(false);
     }
 
     const limparCampos = () => {
@@ -36,6 +37,12 @@ export default function Produto({onSalvarDados, telaAtual, setTelaAtual, onApaga
         )
     }
     
+    //Modal
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const handleNo = () => {
+        setModalVisible(false);
+    }
 
     return (
         <View style={styles.container}>
@@ -92,7 +99,23 @@ export default function Produto({onSalvarDados, telaAtual, setTelaAtual, onApaga
                 
             </View>
             <View style={[styles.botao]}>
-                <Button title="Apagar" onPress={handleApagar}/>
+                <Button title="Apagar" onPress={() => setModalVisible(true)}/>
+
+                <Modal
+                    animationType='slide'
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => setModalVisible(false)}
+                >
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Quer mesmo apagar todos os dados?</Text>
+
+                        <View style={styles.modalButtons}>
+                            <Button title="Sim" onPress={handleApagar}/>
+                            <Button title="Não" onPress={handleNo}/>
+                        </View>
+                    </View>
+                </Modal>
             </View>        
         </View>
     )
@@ -134,5 +157,34 @@ const styles = StyleSheet.create({
         marginBottom: '40',
         fontSize: 20,
         fontStyle: 'italic',
+    },
+    modalView: {
+        width: '80%',
+        padding: 20,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        top: '30%',
+        left: '10%',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+    },
+    modalText: {
+        fontSize: 20,
+        color: 'white',
+        marginBottom: 20,
+    },
+    modalButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+        marginTop: 10,
     }
 })
