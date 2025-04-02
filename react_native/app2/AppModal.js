@@ -25,6 +25,7 @@ export default function App() {
                 animationType='slide'
                 transparent={true}
                 visible={modalVisible}
+                backdropColor='rgba(0, 0, 0, 0.8)'
                 onRequestClose={() => setModalVisible(false)}
             >
                 <View style={styles.modalView}>
