@@ -1,2 +1,4 @@
 import Home from './Home'
-export {Home}
+import Cadastro from './Cadastro'
+
+export {Home, Cadastro}
