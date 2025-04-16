@@ -57,6 +57,13 @@ const css = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 17
+    },
+    item: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        padding: 10,
+        marginBottom: 10,
+        borderRadius: 5,
     }
 });
 

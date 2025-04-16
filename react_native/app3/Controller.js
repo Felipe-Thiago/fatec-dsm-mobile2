@@ -1,5 +1,4 @@
 //Constantes
-
 const express=require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -18,7 +17,8 @@ app.post('/create', async(req,res) => {
         'email': req.body.emailUser,
         'createdAt': new Date(),
         'updatedAt': new Date()
-    }).Date
+    });
+    
     if(reqs){
         res.send(JSON.stringify('O usuário foi cadastrado com sucesso!'));
     }
@@ -34,6 +34,24 @@ app.get('/users', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erro ao buscar usuários'})
+    }
+})
+
+//Rota para deletar usuário
+app.delete('/delete/:id', async (req, res) => {
+    const { id } = req.params;
+    try{
+        const user = await User.findByPk(id);
+
+        if(!user) {
+            return res.status(404).json({ error: 'Usuário não encontrado'});
+        }
+
+        await user.destroy();
+        res.json({message: 'Usuário deletado com sucesso!'})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao deletar usuário'})
     }
 })
 
